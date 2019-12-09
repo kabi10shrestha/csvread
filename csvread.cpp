@@ -6,11 +6,11 @@
 
 using namespace std;
 
-/** brief csvtovector - input of csv string split into vector
+/** @brief csvtovector - input of csv string split into vector
  *
- * param string n csv string with '"' included
+ * @param string n csv string with '"' included
  * "1,101,Alan Smith,\"Austin, Texas\",77,hello"
- * return vector<string>
+ * @return vector<string>
  */
 vector<string> csvtovector(string n) {
     int pos = 0;
@@ -35,11 +35,11 @@ vector<string> csvtovector(string n) {
     csv_vector.push_back(n.substr(pos));
     return csv_vector;
 }
-/** brief print_matching_column - uses input header name and prints specific column from csv data
+/** @brief print_matching_column - uses input header name and prints specific column from csv data
  *
- * param column_name header column to be printed from each csv data
- * param headers contains header names
- * param dbdata contains database data lines
+ * @param column_name header column to be printed from each csv data
+ * @param headers contains header names
+ * @param dbdata contains database data lines
  * if header name does not match then nothing is printed
  *
  */
@@ -56,12 +56,12 @@ void print_matching_column(string column_name,
     }
 }
 
-/** brief print_matching_row - uses input header name and value to print matching csv data rows
+/** @brief print_matching_row - uses input header name and value to print matching csv data rows
  *
- * param column_name header column to be matched from each csv data
- * param column_value value to be matched in data line
- * param headers contains header names
- * param dbdata contains database data lines
+ * @param column_name header column to be matched from each csv data
+ * @param column_value value to be matched in data line
+ * @param headers contains header names
+ * @param dbdata contains database data lines
  * if header name does not match then nothing is printed
  *
  */
@@ -80,15 +80,15 @@ void print_matching_row(string column_name, string column_value,
     }
 }
 
-/** brief main - command line argument searching csv file by headers and matching parameter
+/** @brief main - command line argument searching csv file by headers and matching parameter
  *
- * param int argc contains the number of command-line arguments passed by user
- * param char* argv[] contains the strings matching the header names or matching the header name and parameter
+ * @param int argc contains the number of command-line arguments passed by user
+ * @param char* argv[] contains the strings matching the header names or matching the header name and parameter
  * csvtovector sex
  * prints all elements of column sex
  * csvtovector sex=F
  * prints all lines where sex column = F
- * return 0
+ * @return 0
  */
 int main(int argc, char* argv[]) {
     string filedata;
