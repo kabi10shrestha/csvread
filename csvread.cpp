@@ -1,4 +1,4 @@
-//Copyright 2019 <Kabi Shrestha>
+// Copyright 2019 <Kabi Shrestha>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -15,14 +15,14 @@ using namespace std;
 vector<string> csvtovector(string n) {
     int pos = 0;
     vector<string> csv_vector;
-    if (n[pos] == '\"') { //special case where first element starts with '"'
+    if (n[pos] == '\"') { // special case where first element starts with '"'
         pos = (n.find("\"", pos + 1) + 1);
         csv_vector.push_back(n.substr(0, pos));
         pos += 1;
     }
     size_t found = n.find(",", pos);
     while (found != string::npos) {
-        //cout << n.substr(pos, (found - pos)) << endl;
+        // cout << n.substr(pos, (found - pos)) << endl;
         csv_vector.push_back(n.substr(pos, (found - pos)));
         pos = (found + 1);
         if (n[pos] == '\"') {
@@ -43,7 +43,8 @@ vector<string> csvtovector(string n) {
  * if header name does not match then nothing is printed
  *
  */
-void print_matching_column(string column_name, vector<string> headers, vector<string> dbdata) {
+void print_matching_column(string column_name,
+                           vector<string> headers, vector<string> dbdata) {
     for (int i = 0; i < headers.size(); i++) {
         if (headers[i] == column_name) {
             cout << "Found Header: " << headers.at(i) << endl;
@@ -89,7 +90,6 @@ void print_matching_row(string column_name, string column_value, vector<string> 
  * return 0
  */
 int main(int argc, char* argv[]) {
-
     string filedata;
     int pos = 0;
     vector<string> headers;
@@ -120,12 +120,11 @@ int main(int argc, char* argv[]) {
 
     if (foundeq != string::npos) {
         print_matching_row(header_match, para_match, headers, dbdata);
-    }
-    else {
+    } else {
         print_matching_column(find_header, headers, dbdata);
     }
 
-    //system("pause");
+    // system("pause");
     return 0;
 }
 
