@@ -40,7 +40,7 @@ vector<string> csvtovector(string n) {
  * param headers contains header names
  * param dbdata contains database data lines
  * if header name does not match then nothing is printed
- * 
+ *
  */
 void print_matching_column(string column_name, vector<string> headers, vector<string> dbdata) {
 	for (int i = 0; i < headers.size(); i++) {
@@ -94,7 +94,7 @@ int main(int argc, char* argv[]) {
 	vector<string> headers;
 	vector<string> dbdata;
 	vector<string> temp_data;
-	
+
 	ifstream inFile("example.csv");
 	if (argc != 2) {
 		cout << "Required parameter missing.\n"; return 1;
@@ -102,7 +102,7 @@ int main(int argc, char* argv[]) {
 	if (!inFile) { cout << "Error in opening file.\n"; return 1; }
 	getline(inFile, filedata);
 
-	
+
 	headers = csvtovector(filedata);
 
 	while (!inFile.eof()) {
@@ -123,7 +123,7 @@ int main(int argc, char* argv[]) {
 	else {
 		print_matching_column(find_header, headers, dbdata);
 	}
-		
+
 	//system("pause");
 	return 0;
 }
