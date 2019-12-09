@@ -1,3 +1,4 @@
+//Copyright 2019 <Kabi Shrestha>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -12,27 +13,27 @@ using namespace std;
  * return vector<string>
  */
 vector<string> csvtovector(string n) {
-	int pos = 0;
-	vector<string> csv_vector;
-	if (n[pos] == '\"') { //special case where first element starts with '"'
-		pos = (n.find("\"", pos + 1) + 1);
-		csv_vector.push_back(n.substr(0, pos));
-		pos += 1;
-	}
-	size_t found = n.find(",", pos);
-	while (found != string::npos) {
-		//cout << n.substr(pos, (found - pos)) << endl;
-		csv_vector.push_back(n.substr(pos, (found - pos)));
-		pos = (found + 1);
-		if (n[pos] == '\"') {
-			found = n.find("\"", pos + 1);
-			csv_vector.push_back(n.substr(pos, ((found + 1) - pos)));
-			pos = found + 2;
-		}
-		found = n.find(",", pos + 1);
-	}
-	csv_vector.push_back(n.substr(pos));
-	return csv_vector;
+    int pos = 0;
+    vector<string> csv_vector;
+    if (n[pos] == '\"') { //special case where first element starts with '"'
+        pos = (n.find("\"", pos + 1) + 1);
+        csv_vector.push_back(n.substr(0, pos));
+        pos += 1;
+    }
+    size_t found = n.find(",", pos);
+    while (found != string::npos) {
+        //cout << n.substr(pos, (found - pos)) << endl;
+        csv_vector.push_back(n.substr(pos, (found - pos)));
+        pos = (found + 1);
+        if (n[pos] == '\"') {
+            found = n.find("\"", pos + 1);
+            csv_vector.push_back(n.substr(pos, ((found + 1) - pos)));
+            pos = found + 2;
+        }
+        found = n.find(",", pos + 1);
+    }
+    csv_vector.push_back(n.substr(pos));
+    return csv_vector;
 }
 /** brief print_matching_column - uses input header name and prints specific column from csv data
  *
@@ -43,15 +44,15 @@ vector<string> csvtovector(string n) {
  *
  */
 void print_matching_column(string column_name, vector<string> headers, vector<string> dbdata) {
-	for (int i = 0; i < headers.size(); i++) {
-		if (headers[i] == column_name) {
-			cout << "Found Header: " << headers.at(i) << endl;
-			for (int j = 0; j < dbdata.size(); j++) {
-				vector<string> dbline = csvtovector(dbdata[j]);
-				cout << dbline[i] << endl;
-			}
-		}
-	}
+    for (int i = 0; i < headers.size(); i++) {
+        if (headers[i] == column_name) {
+            cout << "Found Header: " << headers.at(i) << endl;
+            for (int j = 0; j < dbdata.size(); j++) {
+                vector<string> dbline = csvtovector(dbdata[j]);
+                cout << dbline[i] << endl;
+            }
+        }
+    }
 }
 
 /** brief print_matching_row - uses input header name and value to print matching csv data rows
@@ -64,17 +65,17 @@ void print_matching_column(string column_name, vector<string> headers, vector<st
  *
  */
 void print_matching_row(string column_name, string column_value, vector<string> headers, vector<string> dbdata) {
-	for (int i = 0; i < headers.size(); i++) {
-		if (headers[i] == column_name) {
-			cout << "Found Header: " << headers.at(i) << endl;
-			for (int j = 0; j < dbdata.size(); j++) {
-				vector<string> dbline = csvtovector(dbdata[j]);
-				if (column_value == dbline[i]) {
-					cout << dbdata[j] << endl;
-				}
-			}
-		}
-	}
+    for (int i = 0; i < headers.size(); i++) {
+        if (headers[i] == column_name) {
+            cout << "Found Header: " << headers.at(i) << endl;
+            for (int j = 0; j < dbdata.size(); j++) {
+                vector<string> dbline = csvtovector(dbdata[j]);
+                if (column_value == dbline[i]) {
+                    cout << dbdata[j] << endl;
+                }
+            }
+        }
+    }
 }
 
 /** brief main - command line argument searching csv file by headers and matching parameter
@@ -89,42 +90,42 @@ void print_matching_row(string column_name, string column_value, vector<string> 
  */
 int main(int argc, char* argv[]) {
 
-	string filedata;
-	int pos = 0;
-	vector<string> headers;
-	vector<string> dbdata;
-	vector<string> temp_data;
+    string filedata;
+    int pos = 0;
+    vector<string> headers;
+    vector<string> dbdata;
+    vector<string> temp_data;
 
-	ifstream inFile("example.csv");
-	if (argc != 2) {
-		cout << "Required parameter missing.\n"; return 1;
-	}
-	if (!inFile) { cout << "Error in opening file.\n"; return 1; }
-	getline(inFile, filedata);
+    ifstream inFile("example.csv");
+    if (argc != 2) {
+        cout << "Required parameter missing.\n"; return 1;
+    }
+    if (!inFile) { cout << "Error in opening file.\n"; return 1; }
+    getline(inFile, filedata);
 
 
-	headers = csvtovector(filedata);
+    headers = csvtovector(filedata);
 
-	while (!inFile.eof()) {
-		getline(inFile, filedata);
-		dbdata.push_back(filedata);
-	}
-	inFile.close();
+    while (!inFile.eof()) {
+        getline(inFile, filedata);
+        dbdata.push_back(filedata);
+    }
+    inFile.close();
 
-	string find_header = argv[1];
-	size_t foundeq = find_header.find("=");
+    string find_header = argv[1];
+    size_t foundeq = find_header.find("=");
 
-	string header_match = find_header.substr(0, foundeq);
-	string para_match = find_header.substr(foundeq + 1);
+    string header_match = find_header.substr(0, foundeq);
+    string para_match = find_header.substr(foundeq + 1);
 
-	if (foundeq != string::npos) {
-		print_matching_row(header_match, para_match, headers, dbdata);
-	}
-	else {
-		print_matching_column(find_header, headers, dbdata);
-	}
+    if (foundeq != string::npos) {
+        print_matching_row(header_match, para_match, headers, dbdata);
+    }
+    else {
+        print_matching_column(find_header, headers, dbdata);
+    }
 
-	//system("pause");
-	return 0;
+    //system("pause");
+    return 0;
 }
 
